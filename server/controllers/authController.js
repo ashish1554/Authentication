@@ -90,8 +90,9 @@ export const login=async(req,res)=>{
 
         //match thay to  token thi authenticate kro
 
-        
+        console.log("before")
         const token=jwt.sign({id:user._id},process.env.JWT_SECRET,{expiresIn:'7d'});
+        console.log("hello")
 
 
         //add token to cookie
