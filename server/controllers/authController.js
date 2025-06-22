@@ -107,6 +107,7 @@ export const login=async(req,res)=>{
     }
     catch(error)
     {
+        console.log("hello")
         return res.json({success:false,message:error.message})
     }
 }
