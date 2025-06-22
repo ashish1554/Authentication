@@ -12,8 +12,12 @@ connectDB();
 
 app.use(express.json());
 app.use(cookieParser());
+// app.use(cors({
+//   origin: 'http://localhost:5173', // or wherever your frontend is hosted
+//   credentials: true
+// }));
 app.use(cors({
-  origin: 'http://localhost:5173', // or wherever your frontend is hosted
+  origin: ['http://localhost:5173', 'https://mern-auth-frontend-p8ca.onrender.com'],
   credentials: true
 }));
 
