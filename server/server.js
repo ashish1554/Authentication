@@ -13,10 +13,20 @@ connectDB();
 app.use(express.json());
 app.use(cookieParser());
 // app.use(cors({credentials:true}));
+// app.use(cors({
+//   origin: 'http://localhost:5173', // or wherever your frontend is hosted
+//   credentials: true
+// }));
+const allowedOrigins = [
+  'http://localhost:5173',
+  'https://your-frontend.onrender.com' // Replace with your actual Render frontend URL
+];
+
 app.use(cors({
-  origin: 'http://localhost:5173', // or wherever your frontend is hosted
+  origin: allowedOrigins,
   credentials: true
 }));
+
 
 
 //api end points
