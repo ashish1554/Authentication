@@ -52,8 +52,20 @@ const userAuth = async (req, res, next) => {
   try {
     const decoded = jwt.verify(token, process.env.JWT_SECRET);
 
-    // Attach user ID to req.body or req.user
-    req.userId = decoded.id; // better than injecting into body
+    // // Attach user ID to req.body or req.user
+    // req.userId = decoded.id; // better than injecting into body
+     if(decoded.id)
+        {
+            if(!req.body)
+            {
+                req.body={};
+            }
+            req.body.userId=decoded.id
+        }else
+        {
+            return res.json({success:false,message:'Not Authorized Login Again'});
+        }
+    
 
     next();
   } catch (error) {
