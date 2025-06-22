@@ -10,7 +10,7 @@ const Login = () => {
     const navigate =useNavigate();
 
 
-    const {backendUrl,setIsLoggedin,getUserData}=useContext(AppContext)
+    const {backendUrl,setIsLoggedin,getUserData,setUserData}=useContext(AppContext)
 
     const [state, setState] = useState('Sign Up')
     const [name,setName]=useState('')
@@ -31,18 +31,19 @@ const Login = () => {
             {
                 //api call to backend
                 const {data} = await axios.post(backendUrl+'/api/auth/register',{name,email,password})
-
+                console.log(data)
                 if(data.success)
                 {
                     setIsLoggedin(true)
-                    getUserData()
+                    // getUserData()
+                    setUserData(data.user);
                     navigate('/')
                 }
                 else{
-                    // alert(data.message)
+                    alert(data.message)
                     //tost vapriye
                 
-                    toast.error(error.message)
+                    // toast.error(error.message)
                     
                 }
             }
@@ -60,7 +61,7 @@ const Login = () => {
                     // alert(data.message)
                     //tost vapriye
                     console.log("hello")
-                    toast.error(error.message)
+                    toast.error(data.message)
                     
                 }
             }

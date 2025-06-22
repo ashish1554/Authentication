@@ -8,7 +8,7 @@ import userModel from '../model/userModel.js';
 
 export const register =async(req,res)=>{
     const {name,email,password}=req.body;
-
+    
     if(!name || !email || !password)
     {
         return res.json({success:false,message:"Details Are Missing"});
@@ -51,7 +51,17 @@ export const register =async(req,res)=>{
         }  
         await transporter.sendMail(mailOptions);
         
-        return res.json({success:true});
+        // return res.json({success:true});
+        return res.json({
+  success: true,
+  user: {
+    name: user.name,
+    email: user.email
+  }
+});
+
+        
+
         
     }
     catch(error)
@@ -98,11 +108,13 @@ export const login=async(req,res)=>{
         //add token to cookie
         res.cookie('token',token,{
             httpOnly:true,
-            // secure:process.env.NODE_ENV==='production',
-            // sameSite:process.env.NODE_ENV==='production' ? 'none':'strict',
-            secure: true,             // 🔥 Always true for HTTPS (Vercel/Render)
-            sameSite: 'none', 
-            maxAge:7 * 24 * 60 * 60 * 1000
+            secure:process.env.NODE_ENV==='production',
+            sameSite:process.env.NODE_ENV==='production' ? 'none':'strict',
+            // secure: true,             // 🔥 Always true for HTTPS (Vercel/Render)
+            // sameSite: 'none',
+            maxAge:7 * 24 * 60 * 60 * 1000,
+            path: '/'
+          
         });
         
         return res.json({success:true});
@@ -123,9 +135,12 @@ export const logout=async(req,res)=>{
             httpOnly:true,
             secure:process.env.NODE_ENV==='production',
             sameSite:process.env.NODE_ENV==='production' ? 'none':'strict',
+            path: '/'
         });
-        return res.json({success:true,message:"Logged Out"});
+        console.log("Cookies received in logout:", req.cookies);
 
+        return res.json({success:true,message:"Logged Out"});
+        
     }
      catch(error)
     {

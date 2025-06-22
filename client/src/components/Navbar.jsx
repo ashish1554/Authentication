@@ -38,6 +38,7 @@ const Navbar = () => {
         axios.defaults.withCredentials=true
         const{data}=await axios.post(backendUrl+'/api/auth/logout')
 
+        console.log(data)
         data.success && setIsLoggedin(false)
         data.success && setUserData(false)
         navigate('/')
