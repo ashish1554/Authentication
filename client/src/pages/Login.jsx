@@ -41,6 +41,7 @@ const Login = () => {
                 else{
                     // alert(data.message)
                     //tost vapriye
+                
                     toast.error(error.message)
                     
                 }
@@ -65,6 +66,7 @@ const Login = () => {
         }
         catch(error)
         {
+            console.log("hello")
               toast.error(error.message)
         }
     }
