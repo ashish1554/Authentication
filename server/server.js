@@ -17,16 +17,12 @@ app.use(cookieParser());
 //   origin: 'http://localhost:5173', // or wherever your frontend is hosted
 //   credentials: true
 // }));
-<<<<<<< HEAD
+
+
 
 const allowedOrigins = [
   'http://localhost:5173',
-  'https://mern-authentication-frontend-da9s.onrender.com/' // Replace with your actual Render frontend URL
-=======
-const allowedOrigins = [
-  'http://localhost:5173',
   'https://your-frontend.onrender.com' // Replace with your actual Render frontend URL
->>>>>>> 1496b45a0a3cb776748cbc4eb8a3282d11527f5b
 ];
 
 app.use(cors({
