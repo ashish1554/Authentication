@@ -18,6 +18,7 @@ export const getUserData=async (req,res)=>{
     }
     catch(error)
     {
+        console.log("first")
         res.json({success:false,message:error.message})
     }
 }

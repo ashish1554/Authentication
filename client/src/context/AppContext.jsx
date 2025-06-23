@@ -16,13 +16,13 @@ export const AppContextProvider = (props)=>{
 
         try{
 
-            const {data}=await axios.get(backendUrl+'/api/user/data')
+            const {data}=await axios.post(backendUrl+'/api/user/data')
+            console.log(data.userData)
             data.success ? setUserData(data.userData) : toast.error(data.message)
-           
-
         }
         catch(error)
         {
+            console.log("Error")
             toast.error(error.message)
         }
     }
