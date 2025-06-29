@@ -39,7 +39,7 @@ export const AppContextProvider = (props)=>{
         }
         catch(error)
         {
-            toast.error(error.message)
+            console.log("Error in getting auth state")
         }
     }
 
