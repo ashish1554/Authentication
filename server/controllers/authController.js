@@ -331,3 +331,31 @@ export const resetPassword=async(req,res)=>{
         return res.json({success:false,message:error.message})
     }
 }
+
+export const verifyResetOtp = async (req, res) => {
+  const { email, otp } = req.body;
+
+  if (!email || !otp) {
+    return res.json({ success: false, message: "Email and OTP are required" });
+  }
+
+  try {
+    const user = await userModel.findOne({ email });
+
+    if (!user) {
+      return res.json({ success: false, message: "User not found" });
+    }
+
+    if (user.resetOtp === '' || user.resetOtp !== otp) {
+      return res.json({ success: false, message: "Invalid OTP" });
+    }
+
+    if (user.resetOtpExpireAt < Date.now()) {
+      return res.json({ success: false, message: "OTP Expired" });
+    }
+
+    return res.json({ success: true, message: "OTP verified" });
+  } catch (error) {
+    return res.json({ success: false, message: error.message });
+  }
+};

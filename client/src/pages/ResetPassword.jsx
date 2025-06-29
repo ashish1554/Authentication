@@ -65,12 +65,35 @@ const ResetPassword = () => {
       }
     }
 
-    const onSubmitOTP=async(e)=>{
-      e.preventDefault();
-      const otpArray=inputRefs.current.map(e=>e.value)
-      setOtp(otpArray.join(''))
-      setIsOtpSubmitted(true)
+    // const onSubmitOTP=async(e)=>{
+    //   e.preventDefault();
+    //   const otpArray=inputRefs.current.map(e=>e.value)
+    //   setOtp(otpArray.join(''))
+    //   setIsOtpSubmitted(true)
+    // }
+    const onSubmitOTP = async (e) => {
+  e.preventDefault();
+  const otpArray = inputRefs.current.map((e) => e.value);
+  const otpValue = otpArray.join('');
+  setOtp(otpValue);
+
+  try {
+    const { data } = await axios.post(backendUrl + '/api/auth/verify-otp', {
+      email,
+      otp: otpValue,
+    });
+
+    if (data.success) {
+      toast.success("OTP verified");
+      setIsOtpSubmitted(true);
+    } else {
+      toast.error(data.message);
     }
+  } catch (error) {
+    toast.error(error.message);
+  }
+};
+
 
     const onSubmitNewPassword=async(e)=>{
       e.preventDefault();
