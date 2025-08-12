@@ -92,7 +92,7 @@ const ResetPassword = () => {
   } catch (error) {
     toast.error(error.message);
   }
-};
+}
 
 
     const onSubmitNewPassword=async(e)=>{
